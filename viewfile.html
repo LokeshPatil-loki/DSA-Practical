@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Upload File</title>
+</head>
+<body>
+    <form action="get" id="certificateForm">
+        
+        <button type="button" id="add" onclick="return AddUpload()">add</button>
+    </form>
+    
+
+    <script>
+        
+        let inputCount = 0;
+        const certificateForm = document.querySelector("#certificateForm");
+        var viewFile = document.querySelector("#viewFile");
+
+        const fileReaderOnLoad = function(){
+            let newWindow = window.open("","_blank");
+            let viewer = newWindow.document.createElement("embed");
+            viewer.src = this.result;
+            viewer.style.maxWidth="100%";
+            viewer.style.maxHeight="100%";
+            newWindow.document.body.append(viewer);
+        };
+
+        function AddUpload(){
+            if(inputCount < 5){
+                const div = document.createElement("div");
+                div.id="holder";
+                div.style.display = "flex";
+                div.style.flexDirection = "row";
+                const inputFile = document.createElement("input");
+                inputFile.type = "file";
+                inputFile.id = "inputFile"+inputCount;
+                inputFile.addEventListener("change",e => {
+                    const target = e.target
+                    const parent = e.target.parentElement;
+                    if(e.target.files[0]){
+                        if(parent.children.length > 1){
+                            parent.removeChild(parent.children[1]);
+                            parent.removeChild(parent.children[1]);
+                        }
+                        addViewFileButton(target,parent);
+                        addRemoveFileButton(target,parent);
+                    }else{
+                        parent.removeChild(parent.children[1]);
+                        parent.removeChild(parent.children[1]);
+                    }
+                });
+                inputCount++;
+                div.appendChild(inputFile);
+                certificateForm.prepend(div);
+            }else{
+                alert("Maximum 5 files are allowed");
+            }
+        }
+
+        function addViewFileButton(target, parent){
+            const btnViewFile = document.createElement("button");
+            btnViewFile.innerText = "View File";
+            btnViewFile.id = "viewFile"+inputCount;
+            btnViewFile.addEventListener("click",e => {
+                e.preventDefault();
+                const reader = new FileReader();
+                reader.addEventListener("load",fileReaderOnLoad);
+                reader.readAsDataURL(target.files[0]);
+                console.log(target.files[0].name);
+            });
+            parent.appendChild(btnViewFile);
+        }
+        
+        function addRemoveFileButton(target, parent){
+            const btnRemoveFile = document.createElement("button");
+            btnRemoveFile.innerText = "Remove File";
+            btnRemoveFile.id = "removeFile"+inputCount;
+            btnRemoveFile.addEventListener("click",e => {
+                e.preventDefault();
+                target.value = "";
+                parent.removeChild(parent.children[1]);
+                parent.removeChild(parent.children[1]);
+            });
+            parent.appendChild(btnRemoveFile);
+        }
+
+
+
+        viewFile.addEventListener("click",e => {
+            e.preventDefault();
+            let inputArray = document.querySelectorAll("input[type=file]"); 
+            const fileDataArr = [];
+            inputArray.forEach(obj => {
+                if(obj.files.length == 1){
+                    const reader = new FileReader();
+                    reader.addEventListener("load",fileReaderOnLoad);
+                    reader.readAsDataURL(obj.files[0]);
+                    console.log(obj.files[0].name);
+                    fileDataArr.push(obj.files[0]);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
