@@ -1,0 +1,39 @@
+struct node* addNodeBegining(struct node *start, int data){
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    if(start != NULL){
+        newNode->next = start;
+    }
+    start = newNode;
+    return start;
+}
+
+Algorithm: Signly Linked List Add Node To The Begining
+Input:  ptrStart, data
+Output: ptrStart
+
+Step 1: Start
+Step 2: Read ptrStart, data
+Step 2: Create new node pointer newNode and dynamically allocate memory.
+Step 3: Set newNode->data = data
+Step 4: IF start != NULL Then
+        Goto Step 5 Otherwise Goto Step 6.
+Step 5: Set newNode->next = ptrStart
+Step 6: Set ptrStart = newNode
+Step 7: return ptrStart
+
+Algorithm: Singly Linked List Add Node To The End
+Input: prtStart, data
+Output: ptrStart
+
+Step 1: Start
+Step 2: newNode->data = data;
+Step 3: newNode->next = NULL;
+Step 4: IF ptrStart == NULL Then Goto step 5 Otherwise Goto step 7
+Step 5: prtStart = newNode;
+Step 6: Goto step 11
+Step 7: tempNode = ptrStart
+Step 8: Repeat step 9 while tempNode->next != NULL
+Step 9: tempNode = tempNode->next
+Step 10: tempNode->next = newNode;
+Step 11: return prtStart
