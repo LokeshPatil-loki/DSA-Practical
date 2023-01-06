@@ -4,7 +4,6 @@ import Utils.Input;
 public class StarPatterns {
     private static Input input = new Input();
 
-    // Helper Functions
     private static void multiplyAndPrint(int count, String string){
         for(int i=0;i<count;i++){
             System.out.print(string);
@@ -13,7 +12,7 @@ public class StarPatterns {
 
     private static void seperator(){
         System.out.println();
-        multiplyAndPrint(20, "-");
+        multiplyAndPrint(20, "=");
         System.out.println();
         System.out.println();
 
@@ -161,17 +160,29 @@ public class StarPatterns {
 
     public static void main(String[] args) {
         int rows = 5;
-//        pyramid(rows);
-//        rightTriangle(rows);
-//        leftTriangle(rows);
-//        diamondShape(rows);
-//        downwardTriangleRight(rows);
-//        pascalRight(rows);
-//        pascalLeft(rows);
-//        sandGlass(rows);
-//        starTriangle(rows);
-//        starDownTriangle(rows);
+        seperator();
+        pyramid(rows);
+        seperator();
+        rightTriangle(rows);
+        seperator();
+        leftTriangle(rows);
+        seperator();
+        diamondShape(rows);
+        seperator();
+        downwardTriangleRight(rows);
+        seperator();
+        pascalRight(rows);
+        seperator();
+        pascalLeft(rows);
+        seperator();
+        sandGlass(rows);
+        seperator();
+        starTriangle(rows);
+        seperator();
+        starDownTriangle(rows);
+        seperator();
         startDiamond(rows);
+        seperator();
     }
 
 
